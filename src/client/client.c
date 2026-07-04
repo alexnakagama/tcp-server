@@ -28,10 +28,21 @@ void delete_client(Client *client) {
     free(client);
 }
 
+/* This function assings the username, copies the chars into client->name
+    * Parameters: Client *client, char *u (pointer to client) (string literal)
+    * Returns: void (nothing)
+*/
 void assign_username(Client *client, char *u) {
     if (!client || !u) return;
 
     strncpy(client->name, u, sizeof(client->name) - 1);
 
     client->name[31] = '\0';
+}
+
+/*
+    *
+*/
+void accept_client(Client *client) {
+
 }
