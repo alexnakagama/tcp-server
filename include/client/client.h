@@ -8,7 +8,8 @@ typedef struct Client {
     char name[32]; // username
 } Client;
 
-Client *create_client(void);
+Client *create_client(int sockfd, struct sockaddr_in address);
 void delete_client(Client *client);
 void accept_client(Client *client);
 void broadcast_message(char *msg);
+
