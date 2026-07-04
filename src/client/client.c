@@ -2,10 +2,11 @@
 
 #include <netinet/in.h>
 #include <stdlib.h>
+#include <string.h>
 
-/* This function creates a new client without username
-    * Parameters: 
-    * Returns:
+/* This function allocates memory for a Client
+    * Parameters: int sockfd, struct sockaddr_in address 
+    * Returns: Client* (pointer that points to a Client)
 */
 Client *create_client(int sockfd, struct sockaddr_in address) {
     Client *client = malloc(sizeof(Client));
@@ -18,3 +19,19 @@ Client *create_client(int sockfd, struct sockaddr_in address) {
     return client;
 }
 
+/* This function frees the memory allocated in the heap for the Client
+    * Parameters: Client *client (pointer to the client)
+    * Returns: void (nothing)
+*/
+void delete_client(Client *client) {
+    if (!client) return;
+    free(client);
+}
+
+void assign_username(Client *client, char *u) {
+    if (!client || !u) return;
+
+    strncpy(client->name, u, sizeof(client->name) - 1);
+
+    client->name[31] = '\0';
+}
