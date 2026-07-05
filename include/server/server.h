@@ -2,6 +2,8 @@
 #include <stdint.h>
 #include <sys/socket.h>
 
+#include "client/client.h"
+
 /*
     * In UNIX like os everything is treated as a file including:
     * - Regular files
@@ -21,5 +23,5 @@ typedef struct Server {
 
 int server_init(Server *server, uint16_t port);
 void server_close(Server *server);
-int server_accept(Server *server);
+int server_accept(Server *server, Client *client);
 void server_run(Server *server);
