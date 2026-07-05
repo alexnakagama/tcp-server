@@ -23,6 +23,7 @@ int server_init(Server *server, uint16_t server_port) {
     server->addr.sin_addr.s_addr = INADDR_ANY;
 
     // bind() tells the OS this socket will use this IP and this port
+    // assigns an address to the socket
     if (bind(server->fd, (struct sockaddr *)&server->addr, sizeof(server->addr)) < 0) {
         return -1;
     }
