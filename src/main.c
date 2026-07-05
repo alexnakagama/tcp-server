@@ -1,7 +1,5 @@
-#include <stdio.h>
+#include <sys/socket.h>
 
 int main(void) {
-    printf("Hello, world!");
-
     return 0;
 }
