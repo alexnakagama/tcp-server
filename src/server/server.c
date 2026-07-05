@@ -1,7 +1,25 @@
+#include <netinet/in.h>
 #include <server/server.h>
+#include <sys/socket.h>
 #include <unistd.h>
 
 int server_init(Server *server, uint16_t server_port) {
+    if (!server) return -1;
+
+    server->fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (server->fd == 1) return -1;
+
+    server->addr.sin_family = AF_INET;
+    server->addr.sin_port = htons(server_port);
+    server->addr.sin_addr.s_addr = INADDR_ANY;
+
+    if (bind(server->fd, (struct sockaddr *)&server->addr, sizeof(server->addr)) < 0) {
+        return -1;
+    }
+
+    if (listen(server->fd, SOMAXCONN) < 0) return -1;
+
+    return 0;
 }
 
 int server_accept(Server *server, Client *client) {
