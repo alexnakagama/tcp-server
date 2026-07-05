@@ -3,6 +3,7 @@
 #include <netinet/in.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 /* This function allocates memory for a Client
     * Parameters: int sockfd, struct sockaddr_in address 
@@ -25,6 +26,8 @@ Client *create_client(int sockfd, struct sockaddr_in address) {
 */
 void delete_client(Client *client) {
     if (!client) return;
+
+    close(client->sockfd);
     free(client);
 }
 
@@ -32,7 +35,7 @@ void delete_client(Client *client) {
     * Parameters: Client *client, char *u (pointer to client) (string literal)
     * Returns: void (nothing)
 */
-void assign_username(Client *client, char *u) {
+void assign_username(Client *client, const char *u) {
     if (!client || !u) return;
 
     strncpy(client->name, u, sizeof(client->name) - 1);
