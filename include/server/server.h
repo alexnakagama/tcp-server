@@ -25,3 +25,5 @@ int server_init(Server *server, uint16_t port);
 void server_close(Server *server);
 int server_accept(Server *server, Client *client);
 void server_run(Server *server);
+void server_broadcast(Server *server, Client *sender, const char *msg);
+
