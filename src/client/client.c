@@ -40,11 +40,3 @@ void assign_username(Client *client, char *u) {
     client->name[31] = '\0';
 }
 
-/* This function accepts the client on the server
-    * Parameters: 
-    * Returns:
-*/
-void accept_client(Client *client) {
-
-}
-
