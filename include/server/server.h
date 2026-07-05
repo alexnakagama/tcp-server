@@ -1,4 +1,5 @@
 #include <netinet/in.h>
+#include <stdint.h>
 #include <sys/socket.h>
 
 /*
@@ -15,4 +16,8 @@
 typedef struct Server {
     int fd; // fd = file descriptor
     struct sockaddr_in addr;
+    socklen_t addr_len;
 } Server;
+
+int server_init(Server *server, uint16_t port);
+int server_close(Server *server);
