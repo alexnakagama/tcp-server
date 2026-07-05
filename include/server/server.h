@@ -20,4 +20,6 @@ typedef struct Server {
 } Server;
 
 int server_init(Server *server, uint16_t port);
-int server_close(Server *server);
+void server_close(Server *server);
+int server_accept(Server *server);
+void server_run(Server *server);
