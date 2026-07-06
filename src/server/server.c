@@ -34,6 +34,9 @@ int server_init(Server *server, uint16_t server_port) {
 }
 
 int server_accept(Server *server, Client *client) {
+    if (!server) return -1;
+
+    if (!client) return -1;
 }
 
 void server_run(Server *server) {
