@@ -37,10 +37,12 @@ int server_accept(Server *server, Client *client) {
     if (!server) return -1;
 
     if (!client) return -1;
+
+    return 0;
 }
 
 void server_run(Server *server) {
-
+    if (!server) return;
 }
 
 void server_broadcast(Server *server, Client *sender, const char *msg) {
