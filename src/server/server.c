@@ -46,7 +46,11 @@ void server_run(Server *server) {
 }
 
 void server_broadcast(Server *server, Client *sender, const char *msg) {
+    if (!server) return;
 
+    if (!sender) return;
+
+    if (msg == NULL) return;
 }
 
 void server_close(Server *server) {
