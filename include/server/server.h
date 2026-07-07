@@ -18,7 +18,6 @@
 typedef struct Server {
     int fd; // fd = file descriptor
     struct sockaddr_in addr;
-    socklen_t addr_len;
 } Server;
 
 int server_init(Server *server, uint16_t server_port);

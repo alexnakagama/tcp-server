@@ -33,10 +33,21 @@ int server_init(Server *server, uint16_t server_port) {
     return 0;
 }
 
+/* This function accepts the client into the server
+    * 
+*/
 int server_accept(Server *server, Client *client) {
     if (!server) return -1;
-
     if (!client) return -1;
+
+    socklen_t addr_len = sizeof(client->address);
+
+    client->sockfd = accept(
+        server->fd, 
+        (struct sockaddr *)&client->address, 
+        &addr_len);
+
+    if (client->sockfd == -1) return -1;
 
     return 0;
 }
