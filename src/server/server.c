@@ -52,6 +52,9 @@ int server_accept(Server *server, Client *client) {
     return 0;
 }
 
+/* This
+    *
+*/
 void server_broadcast(Server *server, Client *sender, const char *msg) {
     if (!server) return;
 
@@ -60,6 +63,10 @@ void server_broadcast(Server *server, Client *sender, const char *msg) {
     if (msg == NULL) return;
 }
 
+/* This function closes the server, since the server will live in stack doesnt needs to free memory
+    * Parameters: Server *server (pointer to the server)
+    * Returns: void (nothing)
+*/
 void server_close(Server *server) {
     if (!server) return;   
 
