@@ -5,7 +5,7 @@
 
 /* This function configures a socket TCP so it acts as a server
     * Parameters: Server *server, uint16_t server_port (pointer to a server, unsigned int of a server port)
-    * Returns: int
+    * Returns: int (0 succeed) (-1 error)
     *
     * All TCP servers in C are: socket -> bind -> listen -> accept
 */
