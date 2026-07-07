@@ -33,12 +33,12 @@ int server_init(Server *server, uint16_t server_port) {
     return 0;
 }
 
-/* This function accepts the client into the server
-    * 
+/* This function accepts the pending client connection and fills the Client structure with info about the connected client
+    * Parameters: Server *server, Client *client (pointer to Server) (pointer to Client)
+    * Returns: int (0 succeed) (-1 error)
 */
 int server_accept(Server *server, Client *client) {
-    if (!server) return -1;
-    if (!client) return -1;
+    if (!server || !client) return -1;
 
     socklen_t addr_len = sizeof(client->address);
 
@@ -54,6 +54,8 @@ int server_accept(Server *server, Client *client) {
 
 void server_run(Server *server) {
     if (!server) return;
+
+
 }
 
 void server_broadcast(Server *server, Client *sender, const char *msg) {
