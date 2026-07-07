@@ -15,9 +15,14 @@
     * A file descriptor is simply an integer that identifies one of these open resources
 */
 
+#define MAX_CLIENTS 100
+
 typedef struct Server {
     int fd; // fd = file descriptor
     struct sockaddr_in addr;
+
+    Client *clients[MAX_CLIENTS];
+    int client_count;
 } Server;
 
 int server_init(Server *server, uint16_t server_port);
