@@ -52,12 +52,6 @@ int server_accept(Server *server, Client *client) {
     return 0;
 }
 
-void server_run(Server *server) {
-    if (!server) return;
-
-
-}
-
 void server_broadcast(Server *server, Client *sender, const char *msg) {
     if (!server) return;
 
