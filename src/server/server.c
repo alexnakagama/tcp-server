@@ -71,6 +71,28 @@ int server_add_client(Server *server, Client *client) {
     return 0;
 }
 
+/* This function removes a client from the server list and update the client count
+    * Parameters: Server *server, Client *client (pointer to server) (pointer to client)
+    * Returns: int (0 succeed) (-1 error)
+*/
+int server_remove_client(Server *server, Client *client) {
+    if (!server || !client) return -1;
+    
+    for (int i = 0; i < server->client_count; i++) {
+        if (server->clients[i] == client) {
+            // Move the last client into this pos
+            server->clients[i] = server->clients[server->client_count -1];
+
+            server->client_count--;
+
+            return 0;
+        }
+    }
+
+    // client not found
+    return -1;
+}
+
 /* This
     *
 */

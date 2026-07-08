@@ -28,6 +28,7 @@ typedef struct Server {
 int server_init(Server *server, uint16_t server_port);
 Client *server_accept(Server *server);
 int server_add_client(Server *server, Client *client);
+int server_remove_client(Server *server, Client *client);
 void server_broadcast(Server *server, Client *sender, const char *msg);
 void server_close(Server *server);
 
