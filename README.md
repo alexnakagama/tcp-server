@@ -108,7 +108,7 @@ make
 Start the server:
 
 ```bash
-./server
+.build/server
 ```
 
 Then connect using a TCP client:
