@@ -1,5 +1,6 @@
 #include <netinet/in.h>
 #include <server/server.h>
+#include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
@@ -97,9 +98,15 @@ int server_remove_client(Server *server, Client *client) {
     *
 */
 void server_broadcast(Server *server, Client *sender, const char *msg) {
-    if (!server || !sender) return;
+    if (!server || !sender || !msg) return;
 
-    if (msg == NULL) return;
+    for (int i = 0; i < server->client_count; i++) {
+        if (server->clients[i] == sender) {
+            continue;
+        } 
+
+        send(server->clients[i]->sockfd, msg, strlen(msg), 0);
+    }
 }
 
 /* This function closes the server, since the server will live in stack doesnt needs to free memory

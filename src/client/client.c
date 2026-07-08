@@ -39,7 +39,6 @@ void assign_username(Client *client, const char *username) {
     if (!client || !username) return;
 
     strncpy(client->name, username, sizeof(client->name) - 1);
-
     client->name[sizeof(client->name) - 1] = '\0';
 }
 
