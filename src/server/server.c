@@ -33,23 +33,27 @@ int server_init(Server *server, uint16_t server_port) {
     return 0;
 }
 
-/* This function accepts the pending client connection and fills the Client structure with info about the connected client
-    * Parameters: Server *server, Client *client (pointer to Server) (pointer to Client)
-    * Returns: int (0 succeed) (-1 error)
+/* This function waits for a client to connect, obtains the information about the client, creates the client and returns it
+    * Accepts incoming connection and returns a pointer to newly allocated client
+    *
+    * Parameters: Server *server (pointer to Server)
+    * Returns: Client* (pointer to the newly created client)
 */
-int server_accept(Server *server, Client *client) {
-    if (!server || !client) return -1;
+Client *server_accept(Server *server) {
+    if (!server) return NULL;
 
-    socklen_t addr_len = sizeof(client->address);
+    struct sockaddr_in address;
+    socklen_t addr_len = sizeof(address);
 
-    client->sockfd = accept(
-        server->fd, 
-        (struct sockaddr *)&client->address, 
-        &addr_len);
+    int sockfd = accept(
+        server->fd,
+        (struct sockaddr *)&address,
+        &addr_len
+    );
+    if (sockfd == -1) return NULL;
 
-    if (client->sockfd == -1) return -1;
 
-    return 0;
+    return create_client(sockfd, address);
 }
 
 /* This
