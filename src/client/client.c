@@ -35,11 +35,11 @@ void delete_client(Client *client) {
     * Parameters: Client *client, char *u (pointer to client) (string literal)
     * Returns: void (nothing)
 */
-void assign_username(Client *client, const char *u) {
-    if (!client || !u) return;
+void assign_username(Client *client, const char *username) {
+    if (!client || !username) return;
 
-    strncpy(client->name, u, sizeof(client->name) - 1);
+    strncpy(client->name, username, sizeof(client->name) - 1);
 
-    client->name[31] = '\0';
+    client->name[sizeof(client->name) - 1] = '\0';
 }
 
