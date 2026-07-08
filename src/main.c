@@ -26,6 +26,22 @@ int main(void) {
             continue;
         } 
 
+        char username[32];
+
+        int bytes = recv(client->sockfd, username, sizeof(username) - 1, 0);
+
+        if (bytes <= 0) {
+            server_remove_client(&server, client);
+            delete_client(client);
+            continue;
+        } 
+
+        username[bytes] = '\0';
+
+        assign_username(client, username);
+
+        printf("%s joined the server\n", client->name);
+
         // Receive username
         // Receive messages
         // Broadcast messages

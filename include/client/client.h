@@ -14,5 +14,5 @@ typedef struct Client {
 
 Client *create_client(int sockfd, struct sockaddr_in address);
 void delete_client(Client *client);
-void assign_username(Client *client, const char *u);
+void assign_username(Client *client, const char *username);
 
