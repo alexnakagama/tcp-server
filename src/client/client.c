@@ -3,6 +3,7 @@
 #include <netinet/in.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/socket.h>
 #include <unistd.h>
 
 /* This function allocates memory for a Client
@@ -40,5 +41,24 @@ void assign_username(Client *client, const char *username) {
 
     strncpy(client->name, username, sizeof(client->name) - 1);
     client->name[sizeof(client->name) - 1] = '\0';
+}
+
+/* This function receives a username from a connected client and stores it inside the Client struct
+    * Parameters: Client *client (pointer to a client)
+    * Returns: int (0 succeed) (-1 error)
+*/
+int client_receive_username(Client *client) {
+    if (!client) return -1;
+
+    char buffer[32];
+
+    int bytes = recv(client->sockfd, buffer, sizeof(buffer) - 1, 0);
+    if (bytes <= 0) return -1;
+
+    buffer[bytes] = '\0';
+
+    assign_username(client, buffer);
+
+    return 0;
 }
 
