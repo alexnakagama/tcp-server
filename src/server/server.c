@@ -56,6 +56,21 @@ Client *server_accept(Server *server) {
     return create_client(sockfd, address);
 }
 
+/* This function adds a connected client to the servers list of clients
+    * Parameters: Server *server, Client *client (pointer to server) (pointer to client) 
+    * Returns: int (0 succeed) (-1 error)
+*/
+int server_add_client(Server *server, Client *client) {
+    if (!server || !client) return -1;
+
+    if (server->client_count >= MAX_CLIENTS) return -1;
+
+    server->clients[server->client_count] = client;
+    server->client_count++;
+
+    return 0;
+}
+
 /* This
     *
 */
