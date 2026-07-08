@@ -94,8 +94,9 @@ int server_remove_client(Server *server, Client *client) {
     return -1;
 }
 
-/* This
-    *
+/* This function broadcast a message to all the clients in the server
+    * Parameters: Server *server, Client *sender, const char *msg (pointer to the server) (pointer to a client) (string literal)
+    * Returns: void
 */
 void server_broadcast(Server *server, Client *sender, const char *msg) {
     if (!server || !sender || !msg) return;
