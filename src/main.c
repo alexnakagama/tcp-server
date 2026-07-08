@@ -17,19 +17,36 @@ int main(void) {
         return EXIT_FAILURE;
     }
 
+    printf("Server initialized\n");
+
     while (1) {
         // 1. Wait for the client
+        printf("Waiting for client...\n");
+
         Client *client = server_accept(&server);
-        if (!client) continue;
+        printf("Client accepted.\n");
+
+        if (!client) {
+            printf("Accept failed.\n");
+            continue;
+        }
 
         // 2. Save it
+        printf("Adding client...\n");
+
         if (server_add_client(&server, client) != 0) {
+            printf("Failed adding client.\n");
             delete_client(client);
             continue;
         } 
 
+        printf("Client added.\n");
+
         // 3. Receive username
+        printf("Receiving username...\n");
+
         if (client_receive_username(client) != 0) {
+            printf("Failed to receive a username.\n");
             server_remove_client(&server, client);
             delete_client(client);
             continue;
@@ -41,6 +58,7 @@ int main(void) {
         char buffer[1024];
 
         while (1) {
+            printf("Waiting for message...\n");
             int bytes = recv(client->sockfd, buffer, sizeof(buffer) - 1, 0);
             if (bytes <= 0) break;
 
@@ -52,6 +70,8 @@ int main(void) {
         }
 
         // 5. Client disconnected
+        printf("Removing client...\n");
+
         server_remove_client(&server, client);
         delete_client(client);
     }

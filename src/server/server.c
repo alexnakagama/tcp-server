@@ -1,5 +1,6 @@
 #include <netinet/in.h>
 #include <server/server.h>
+#include <stdio.h>
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -12,6 +13,9 @@
 */
 int server_init(Server *server, uint16_t server_port) {
     if (!server) return -1;
+
+    // Initializing the client count
+    server->client_count = 0;
 
     // Creates the socket TCP
     server->fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -30,6 +34,7 @@ int server_init(Server *server, uint16_t server_port) {
     }
 
     if (listen(server->fd, SOMAXCONN) < 0) return -1;
+    printf("Server listening on port %d\n", server_port);
 
     return 0;
 }
