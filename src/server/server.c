@@ -11,7 +11,7 @@
     *
     * All TCP servers in C are: socket -> bind -> listen -> accept
 */
-int server_init(Server *server, uint16_t server_port) {
+int server_init(Server *server, u16 server_port) {
     if (!server) 
         return -1;
 

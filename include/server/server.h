@@ -19,6 +19,8 @@
 
 #define MAX_CLIENTS 100
 
+typedef uint16_t u16;
+
 typedef struct Server {
     int fd; // fd = file descriptor
     struct sockaddr_in addr;
@@ -27,7 +29,7 @@ typedef struct Server {
     int client_count;
 } Server;
 
-int server_init(Server *server, uint16_t server_port);
+int server_init(Server *server, u16 server_port);
 Client *server_accept(Server *server);
 int server_add_client(Server *server, Client *client);
 int server_remove_client(Server *server, Client *client);
