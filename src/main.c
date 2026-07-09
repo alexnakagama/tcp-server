@@ -17,7 +17,7 @@ int main(void) {
         return EXIT_FAILURE;
     }
 
-    printf("Server initialized\n");
+    printf("Server initialized\n\n");
 
     while (1) {
         // 1. Wait for the client
