@@ -61,7 +61,8 @@ int main(void) {
         while (1) {
             printf("Waiting for message...\n");
             int bytes = recv(client->sockfd, buffer, sizeof(buffer) - 1, 0);
-            if (bytes <= 0) break;
+            if (bytes <= 0) 
+                break;
 
             buffer[bytes] = '\0';
 
