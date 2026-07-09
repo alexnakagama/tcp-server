@@ -12,14 +12,16 @@
     * All TCP servers in C are: socket -> bind -> listen -> accept
 */
 int server_init(Server *server, uint16_t server_port) {
-    if (!server) return -1;
+    if (!server) 
+        return -1;
 
     // Initializing the client count
     server->client_count = 0;
 
     // Creates the socket TCP
     server->fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (server->fd == 1) return -1;
+    if (server->fd == 1) 
+        return -1;
 
     // Configures the server address
     // IPv4, port, accept connections in all IPs of the PC
@@ -33,7 +35,10 @@ int server_init(Server *server, uint16_t server_port) {
         return -1;
     }
 
-    if (listen(server->fd, SOMAXCONN) < 0) return -1;
+    // Accepts a new conecction and returns a new socket
+    if (listen(server->fd, SOMAXCONN) < 0) 
+        return -1;
+
     printf("Server listening on port %d\n", server_port);
 
     return 0;
@@ -46,7 +51,8 @@ int server_init(Server *server, uint16_t server_port) {
     * Returns: Client* (pointer to the newly created client)
 */
 Client *server_accept(Server *server) {
-    if (!server) return NULL;
+    if (!server) 
+        return NULL;
 
     struct sockaddr_in address;
     socklen_t addr_len = sizeof(address);
@@ -56,8 +62,9 @@ Client *server_accept(Server *server) {
         (struct sockaddr *)&address,
         &addr_len
     );
-    if (sockfd == -1) return NULL;
 
+    if (sockfd == -1) 
+        return NULL;
 
     return create_client(sockfd, address);
 }
@@ -67,9 +74,11 @@ Client *server_accept(Server *server) {
     * Returns: int (0 succeed) (-1 error)
 */
 int server_add_client(Server *server, Client *client) {
-    if (!server || !client) return -1;
+    if (!server || !client) 
+        return -1;
 
-    if (server->client_count >= MAX_CLIENTS) return -1;
+    if (server->client_count >= MAX_CLIENTS) 
+        return -1;
 
     server->clients[server->client_count] = client;
     server->client_count++;
@@ -82,7 +91,8 @@ int server_add_client(Server *server, Client *client) {
     * Returns: int (0 succeed) (-1 error)
 */
 int server_remove_client(Server *server, Client *client) {
-    if (!server || !client) return -1;
+    if (!server || !client) 
+        return -1;
     
     for (int i = 0; i < server->client_count; i++) {
         if (server->clients[i] == client) {
@@ -104,12 +114,12 @@ int server_remove_client(Server *server, Client *client) {
     * Returns: void
 */
 void server_broadcast(Server *server, Client *sender, const char *msg) {
-    if (!server || !sender || !msg) return;
+    if (!server || !sender || !msg) 
+        return;
 
     for (int i = 0; i < server->client_count; i++) {
-        if (server->clients[i] == sender) {
+        if (server->clients[i] == sender)
             continue;
-        } 
 
         send(server->clients[i]->sockfd, msg, strlen(msg), 0);
     }
@@ -120,7 +130,8 @@ void server_broadcast(Server *server, Client *sender, const char *msg) {
     * Returns: void (nothing)
 */
 void server_close(Server *server) {
-    if (!server) return;   
+    if (!server) 
+        return;   
 
     close(server->fd);
 }
