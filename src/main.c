@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/socket.h>
+#include <poll.h>
 
 #include "client/client.h"
 #include "server/server.h"
