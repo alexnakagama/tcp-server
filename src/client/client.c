@@ -12,7 +12,8 @@
 */
 Client *create_client(int sockfd, struct sockaddr_in address) {
     Client *client = malloc(sizeof(Client));
-    if (!client) return NULL;
+    if (!client) 
+        return NULL;
 
     client->sockfd = sockfd;
     client->address = address;
@@ -26,7 +27,8 @@ Client *create_client(int sockfd, struct sockaddr_in address) {
     * Returns: void (nothing)
 */
 void delete_client(Client *client) {
-    if (!client) return;
+    if (!client) 
+        return;
 
     close(client->sockfd);
     free(client);
@@ -37,7 +39,8 @@ void delete_client(Client *client) {
     * Returns: void (nothing)
 */
 void assign_username(Client *client, const char *username) {
-    if (!client || !username) return;
+    if (!client || !username)
+        return;
 
     strncpy(client->name, username, sizeof(client->name) - 1);
     client->name[sizeof(client->name) - 1] = '\0';
@@ -48,12 +51,14 @@ void assign_username(Client *client, const char *username) {
     * Returns: int (0 succeed) (-1 error)
 */
 int client_receive_username(Client *client) {
-    if (!client) return -1;
+    if (!client) 
+        return -1;
 
     char buffer[32];
 
     int bytes = recv(client->sockfd, buffer, sizeof(buffer) - 1, 0);
-    if (bytes <= 0) return -1;
+    if (bytes <= 0) 
+        return -1;
 
     buffer[bytes] = '\0';
 
